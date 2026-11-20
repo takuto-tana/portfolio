@@ -1,5 +1,7 @@
-// Place any global data in this file.
-// You can import this data from anywhere in your site by using the `import` keyword.
+export const SITE_TITLE = 'Hiroto — Portfolio';
+export const SITE_DESCRIPTION =
+  'Hirotoのポートフォリオ。Pythonによるツール制作、Reactを使ったWeb制作、AIを活用した既存サイトの改善を紹介します。';
 
-export const SITE_TITLE = 'Astro Blog';
-export const SITE_DESCRIPTION = 'Welcome to my website!';
+/** Include the GitHub Pages repository prefix in every local URL. */
+export const withBase = (path = '') =>
+  `${import.meta.env.BASE_URL.replace(/\/$/, '')}/${path.replace(/^\//, '')}`;

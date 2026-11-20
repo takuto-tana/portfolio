@@ -1,0 +1,132 @@
+---
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import ProjectVisual from '../../components/ProjectVisual.astro';
+import { withBase } from '../../consts';
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map((project) => ({ params: { id: project.id }, props: { project } }));
+}
+interface Props {
+  project: CollectionEntry<'projects'>;
+}
+const { project } = Astro.props;
+const { Content } = await render(project);
+const {
+  title,
+  subtitle,
+  description,
+  category,
+  role,
+  team,
+  stack,
+  liveUrl,
+  repoUrl,
+  highlights,
+  notice,
+} = project.data;
+const otherProjects = (await getCollection('projects'))
+  .filter((p) => p.id !== project.id)
+  .sort((a, b) => a.data.order - b.data.order);
+---
+
+<Layout title={`${title} — Hiroto Portfolio`} description={description}>
+  <div class="detail-wrap wrap">
+    <nav class="breadcrumb" aria-label="パンくず">
+      <a href={withBase()}>Home</a>
+      <span>/</span>
+      <a href={withBase('#works')}>Works</a>
+      <span>/</span>
+      <span aria-current="page">{title}</span>
+    </nav>
+    <header class="detail-header">
+      <p class="eyebrow">
+        PROJECT STORY <span> / {category}</span>
+      </p>
+      <h1>
+        {title}
+        <span class="heading-dot">.</span>
+      </h1>
+      <p class="detail-subtitle">{subtitle}</p>
+      <div class="detail-meta">
+        <div>
+          <span>ROLE</span>
+          <p>{role}</p>
+        </div>
+        <div>
+          <span>TEAM</span>
+          <p>{team}</p>
+        </div>
+        <div>
+          <span>STACK</span>
+          <div class="tags">
+            {stack.map((s) => (
+              <span>{s}</span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </header>
+    <div class="detail-visual">
+      <ProjectVisual project={project} eager />
+    </div>
+    <div class="detail-actions">
+      {liveUrl && (
+        <a class="button button-dark" href={liveUrl} target="_blank" rel="noopener noreferrer">
+          公開デモを見る<span class="sr-only">（新しいタブ）</span>
+        </a>
+      )}
+      {repoUrl && (
+        <a class="button button-dark" href={repoUrl} target="_blank" rel="noopener noreferrer">
+          GitHubでコードを見る<span class="sr-only">（新しいタブ）</span>
+        </a>
+      )}
+      <a class="quiet-link" href={withBase('#works')}>
+        制作実績の一覧に戻る
+      </a>
+    </div>
+    {notice && (
+      <aside class="project-notice">
+        <strong>公開について</strong>
+        <p>{notice}</p>
+      </aside>
+    )}
+    <div class="highlights-grid">
+      {highlights.map((item) => (
+        <div>
+          <p class="eyebrow">{item.label}</p>
+          <p>{item.text}</p>
+        </div>
+      ))}
+    </div>
+    <div class="story-layout">
+      <aside>
+        <p class="eyebrow">BEHIND THE PROJECT</p>
+        <p>
+          背景、取り組み、
+          <br />
+          そして学んだこと。
+        </p>
+      </aside>
+      <article class="prose">
+        <Content />
+      </article>
+    </div>
+    <section class="other-projects" aria-labelledby="other-title">
+      <h2 id="other-title">ほかの制作実績</h2>
+      <div>
+        {otherProjects.map((p) => (
+          <a href={withBase(`works/${p.id}/`)}>
+            <span>
+              {p.data.title}
+              <small>{p.data.category}</small>
+            </span>
+            <span class="plus" aria-hidden="true">
+              ＋
+            </span>
+          </a>
+        ))}
+      </div>
+    </section>
+  </div>
+</Layout>

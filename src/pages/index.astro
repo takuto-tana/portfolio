@@ -1,59 +1,288 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/Footer.astro';
-import Header from '../components/Header.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import { getCollection } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import Icon from '../components/Icon.astro';
+import { profile, skills } from '../data/profile';
+import { withBase } from '../consts';
+const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
 ---
 
-<!doctype html>
-<html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<Header />
-		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This
-				template serves as a lightweight, minimally-styled starting point for anyone looking to
-				build a personal website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your{' '}
-				<code>astro.config.mjs</code> file. You can customize your setup with{' '}
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like
-				Tailwind, React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>
-					Edit this page in <code>src/pages/index.astro</code>
-				</li>
-				<li>
-					Edit the site header items in <code>src/components/Header.astro</code>
-				</li>
-				<li>
-					Add your name to the footer in <code>src/components/Footer.astro</code>
-				</li>
-				<li>
-					Check out the included blog posts in <code>src/content/blog/</code>
-				</li>
-				<li>
-					Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code>
-				</li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to{' '}
-				<a href="https://docs.astro.build/">read the docs</a> or{' '}
-				<a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out{' '}
-				<a href="https://github.com/Charca/astro-blog-template">astro-blog-template</a> by{' '}
-				<a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
-		</main>
-		<Footer />
-	</body>
-</html>
+<Layout>
+  <section class="hero wrap" aria-labelledby="hero-title">
+    <div class="hero-copy">
+      <p class="eyebrow hero-eyebrow">
+        <span class="tiny-cross" aria-hidden="true">
+          ✳
+        </span>{' '}
+        HI, I'M {profile.name.toUpperCase()}. <span>WEB & TOOL DEVELOPMENT</span>
+      </p>
+      <h1 id="hero-title">
+        学びを、
+        <br />
+        <span class="highlight">使えるかたち</span>に。
+      </h1>
+      <p class="hero-english">Build. Learn. Make it better.</p>
+      <p class="hero-description">
+        Web制作も、業務を支えるツールも。
+        <br />
+        AIとともに考え、つくり、改善を重ねる。
+      </p>
+      <div class="hero-actions">
+        <a class="button button-dark" href="#works">
+          制作実績を見る
+          <span class="button-plus" aria-hidden="true">
+            ＋
+          </span>
+        </a>
+        <a class="quiet-link" href="#about">
+          Hirotoについて
+        </a>
+      </div>
+    </div>
+    <div
+      class="hero-art"
+      aria-label="考える、つくる、改善するという開発の姿勢を表したイラスト"
+      role="img"
+    >
+      <div class="art-grid"></div>
+      <span class="art-corner corner-tl">＋</span>
+      <span class="art-corner corner-br">＋</span>
+      <div class="orbit orbit-one"></div>
+      <div class="orbit orbit-two"></div>
+      <div class="asterisk" aria-hidden="true">
+        <i></i>
+        <i></i>
+        <i></i>
+        <i></i>
+      </div>
+      <div class="idea-note">
+        <span class="note-icon">✳</span> SMALL IDEAS,
+        <br />
+        <strong>REAL OUTPUT.</strong>
+      </div>
+      <div class="code-card">
+        <div class="code-card-top">
+          <span class="code-filename">approach.ts</span>
+          <Icon name="code" size={16} />
+        </div>
+        <div class="code-body">
+          <div>
+            <span class="syntax-purple">const</span> <span class="syntax-white">approach</span> =
+            &#123;
+          </div>
+          <div class="code-indent">
+            understand: <span class="syntax-green">"why"</span>,
+          </div>
+          <div class="code-indent">
+            build: <span class="syntax-green">"with AI"</span>,
+          </div>
+          <div class="code-indent">
+            improve: <span class="syntax-purple">true</span>
+          </div>
+          <div>&#125;;</div>
+        </div>
+        <div class="code-card-bottom">
+          <span class="code-check">✓</span> Always a work in progress.
+        </div>
+      </div>
+      <div class="art-tag tag-think">THINK</div>
+      <div class="art-tag tag-build">BUILD</div>
+      <div class="art-tag tag-refine">REFINE</div>
+    </div>
+    <div class="hero-foot">
+      <span>小さな気づきを、次のものづくりへ。</span>
+      <div>
+        <span>WEB DEVELOPMENT</span>
+        <span class="foot-divider">/</span>
+        <span>AUTOMATION</span>
+        <span class="foot-divider">/</span>
+        <span>AI COLLABORATION</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section works-section" id="works" aria-labelledby="works-title">
+    <div class="wrap">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">SELECTED WORKS</p>
+          <h2 id="works-title">
+            つくったもの。<span class="heading-dot">●</span>
+          </h2>
+        </div>
+        <p>
+          何をつくったか。どう考えたか。
+          <br />
+          制作の背景と、自分が担ったこと。
+        </p>
+      </div>
+      <div class="projects-grid">
+        {projects.map((project) => (
+          <ProjectCard project={project} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section approach-section wrap" id="approach" aria-labelledby="approach-title">
+    <div class="approach-intro">
+      <p class="eyebrow">HUMAN × AI</p>
+      <h2 id="approach-title">
+        AIとつくる。
+        <br />
+        自分で、理解する。
+      </h2>
+      <p>
+        対話を通じて理解を深め、
+        <br />
+        必要な変更を考え、動きを確かめる。
+        <br />
+        そんな開発を大切にしています。
+      </p>
+      <div class="ai-tools">
+        {profile.aiTools.map((tool) => (
+          <span>{tool}</span>
+        ))}
+      </div>
+      <p class="small-note">利用経験のあるAIツール</p>
+    </div>
+    <div class="approach-steps">
+      <article>
+        <div class="step-symbol">
+          <Icon name="book" size={24} />
+        </div>
+        <div>
+          <p class="step-label">UNDERSTAND</p>
+          <h3>まず、コードの意図を読む。</h3>
+          <p>
+            ENGEIでは、他のメンバーの実装をChatGPTとともに読み解き、構造や動作の理解から始めました。
+          </p>
+        </div>
+      </article>
+      <article>
+        <div class="step-symbol">
+          <Icon name="code" size={24} />
+        </div>
+        <div>
+          <p class="step-label">BUILD</p>
+          <h3>必要な変更を、対話で具体化する。</h3>
+          <p>
+            画像の比率を保つこと、既存の構造を崩さないこと。改修の条件を整理し、AIと相談しながら実装しました。
+          </p>
+        </div>
+      </article>
+      <article>
+        <div class="step-symbol">
+          <Icon name="check" size={24} />
+        </div>
+        <div>
+          <p class="step-label">VERIFY</p>
+          <h3>変更した先まで、確かめる。</h3>
+          <p>スマートフォンの横はみ出しを修正した後、PC表示にも崩れがないかを確認しました。</p>
+        </div>
+      </article>
+    </div>
+    <a class="making-of-banner" href={withBase('making-of/')}>
+      <div class="making-icon">
+        <Icon name="spark" size={26} />
+      </div>
+      <div>
+        <span class="eyebrow">THIS SITE IS A PROJECT, TOO.</span>
+        <p>このポートフォリオも、AIとの協働で。</p>
+      </div>
+      <span class="banner-link">
+        制作の裏側を見る
+        <span class="plus" aria-hidden="true">
+          ＋
+        </span>
+      </span>
+    </a>
+  </section>
+
+  <section class="section skills-section" id="skills" aria-labelledby="skills-title">
+    <div class="wrap">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">TOOLBOX</p>
+          <h2 id="skills-title">アイデアを支える技術。</h2>
+        </div>
+        <p>
+          制作や学習で使ってきた技術。
+          <br />
+          作品での使用例とあわせて紹介します。
+        </p>
+      </div>
+      <ul class="skills-grid">
+        {skills.map((skill) => (
+          <li>
+            <img
+              src={withBase(`icons/${skill.icon}.svg`)}
+              alt=""
+              width="36"
+              height="36"
+              loading="lazy"
+            />
+            <div>
+              <span class="skill-name">{skill.name}</span>
+              <span class="skill-context">{skill.group}</span>
+            </div>
+          </li>
+        ))}
+      </ul>
+      <p class="small-note skills-note">作品名は、各技術を使用した制作実績です。</p>
+    </div>
+  </section>
+
+  <section class="section about-section wrap" id="about" aria-labelledby="about-title">
+    <div class="about-identity">
+      <p class="eyebrow">A LITTLE ABOUT ME</p>
+      <div class="identity-art" aria-hidden="true">
+        <span>
+          h<span>.</span>
+        </span>
+        <div class="identity-orbit"></div>
+        <span class="identity-note">CURIOUS BY NATURE.</span>
+        <Icon name="spark" size={42} />
+      </div>
+      <h2 id="about-title">
+        {profile.name}
+        <span>.</span>
+      </h2>
+      <p class="identity-role">Web & Tool Development</p>
+    </div>
+    <div class="about-copy">
+      <h3>
+        学んだ先に、
+        <br />
+        誰かの役に立つものを。
+      </h3>
+      <p>{profile.introduction}</p>
+      <p>
+        既存のコードを読み解き、変更の影響を確かめる。AIも活用しながら、一つひとつの制作に向き合っています。
+      </p>
+      <div class="certifications">
+        <p class="eyebrow">CERTIFICATIONS</p>
+        <ul>
+          {profile.certifications.map((cert) => (
+            <li>
+              <Icon name="check" size={19} />
+              <span>{cert}</span>
+              <span class="cert-status">合格</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div class="about-links">
+        <a class="text-link" href={profile.github} target="_blank" rel="noopener noreferrer">
+          <Icon name="github" size={18} />
+          GitHub<span class="sr-only">（新しいタブ）</span>
+        </a>
+        <a class="text-link" href={profile.qiita} target="_blank" rel="noopener noreferrer">
+          <Icon name="book" size={18} />
+          Qiita<span class="sr-only">（新しいタブ）</span>
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>
