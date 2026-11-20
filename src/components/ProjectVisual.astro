@@ -1,0 +1,72 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { withBase } from '../consts';
+interface Props {
+  project: CollectionEntry<'projects'>;
+  eager?: boolean;
+}
+const { project, eager = false } = Astro.props;
+const { image, imageAlt, theme } = project.data;
+---
+
+<div class:list={['project-visual', `visual-${theme}`]}>
+  {image ? (
+    <div class="browser-frame">
+      <div class="browser-chrome" aria-hidden="true">
+        <i></i>
+        <i></i>
+        <i></i>
+        <span>{project.data.title} / preview</span>
+      </div>
+      <img
+        src={withBase(image)}
+        alt={imageAlt ?? `${project.data.title}の公開画面`}
+        width="1265"
+        height="712"
+        loading={eager ? 'eager' : 'lazy'}
+        decoding="async"
+      />
+    </div>
+  ) : project.id === 'logdig' ? (
+    <div
+      class="terminal-art"
+      role="img"
+      aria-label="logdigの処理イメージ。ログを抽出し、日付別に集計してCSVに出力します。"
+    >
+      <div class="terminal-top">
+        <span>logdig</span>
+        <span>PYTHON CLI</span>
+      </div>
+      <div class="terminal-line">
+        <span class="terminal-prompt">›</span> application.log
+      </div>
+      <div class="log-lines">
+        <span>
+          <b>INFO</b> application started
+        </span>
+        <span>
+          <b class="error">ERROR</b> connection failed
+        </span>
+        <span>
+          <b>INFO</b> request received
+        </span>
+        <span>
+          <b class="error">ERROR</b> request timeout
+        </span>
+      </div>
+      <div class="terminal-output">
+        <span class="terminal-check" aria-hidden="true">
+          ✓
+        </span>
+        <span>EXTRACT · AGGREGATE · CSV</span>
+      </div>
+      <span class="terminal-caption">処理のイメージ</span>
+    </div>
+  ) : (
+    <div class="project-placeholder">
+      <span>{project.data.category}</span>
+      <strong>{project.data.title}</strong>
+      <p>{project.data.stack.join(' / ')}</p>
+    </div>
+  )}
+</div>

@@ -1,5 +1,5 @@
 {
-  "name": "astro-portfolio",
+  "name": "hiroto-portfolio",
   "type": "module",
   "version": "0.0.1",
   "engines": {
@@ -9,13 +9,22 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "check": "astro check",
+    "verify": "node scripts/verify-build.mjs",
+    "validate": "npm run check && npm run build && npm run verify",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "dependencies": {
-    "@astrojs/mdx": "^8.1.6",
-    "@astrojs/rss": "^4.0.19",
     "@astrojs/sitemap": "^3.7.6",
     "astro": "^7.4.13",
     "sharp": "^0.35.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.12",
+    "prettier": "^3.10.1",
+    "prettier-plugin-astro": "^1.1.2",
+    "typescript": "^6.0.3"
   }
 }
