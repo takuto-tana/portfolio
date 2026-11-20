@@ -1,0 +1,81 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { withBase } from '../consts';
+---
+
+<Layout
+  title="このサイトの制作について — Hiroto Portfolio"
+  description="Hirotoのポートフォリオを、AIとの協働で設計・実装する過程と、更新しやすさのための設計を紹介します。"
+>
+  <div class="detail-wrap wrap">
+    <nav class="breadcrumb" aria-label="パンくず">
+      <a href={withBase()}>Home</a>
+      <span>/</span>
+      <span aria-current="page">Making of</span>
+    </nav>
+    <header class="detail-header">
+      <p class="eyebrow">HUMAN × AI / MAKING OF</p>
+      <h1 class="making-title">
+        このサイトも、
+        <br />
+        ひとつの制作実績。
+      </h1>
+      <p class="detail-subtitle">要件を言葉にするところから、AIとの協働は始まっています。</p>
+    </header>
+    <div class="making-cover">
+      <span>THINK.</span>
+      <span>BUILD.</span>
+      <span>
+        REFINE<span class="lime-text">.</span>
+      </span>
+      <p>Hiroto × Codex</p>
+    </div>
+    <div class="story-layout">
+      <aside>
+        <p class="eyebrow">DEVELOPMENT NOTES</p>
+        <p>
+          つくる過程も、
+          <br />
+          伝えられるかたちに。
+        </p>
+      </aside>
+      <article class="prose">
+        <h2>誰に、何を伝えるかを決める</h2>
+        <p>
+          自社開発企業への転職に使うことを目的に、掲載する作品、担当範囲、AI活用の経験を整理しました。完成画面だけでなく、課題にどう取り組んだかを伝える構成にしています。
+        </p>
+        <h2>人が伝えた経験と、AIが補助した作業</h2>
+        <p>
+          作品の背景、担当範囲、実際に困ったことや確認したことは、自分の経験をもとに整理しました。Codexには、その内容の編集、ページ構成の提案、Astroによる実装、表示やリンクの検証を依頼しています。
+        </p>
+        <p>
+          たとえばENGEIは、単に「レスポンシブ対応」と書くのではなく、画像の横はみ出し、縦横比を保った修正、PCとスマートフォンでの確認という具体的な過程を掲載しました。
+        </p>
+        <h2>更新を続けられる構成にする</h2>
+        <p>
+          作品の説明はMarkdown、プロフィールと技術一覧はデータファイルに分離しています。新しい作品を追加すると、トップページと作品詳細が同じデータから生成されます。
+        </p>
+        <p>
+          Astroの静的生成を使い、GitHub
+          Pagesで公開できる構成にしました。基本的な閲覧やページ移動に、ブラウザ上のJavaScriptは必要ありません。
+        </p>
+        <h2>生成したあとに確認する</h2>
+        <p>
+          ビルド、内部リンクと画像の参照先、PC・スマートフォン幅での表示を確認する工程を設けています。画面サイズが変わっても文章や画像がはみ出さないこと、キーボードでリンクに移動できることを重視しています。
+        </p>
+        <h2>次の改善につなげる</h2>
+        <p>
+          新しい制作実績や学びを追加しながら、内容を更新していきます。見た目だけでなく、説明の分かりやすさや閲覧しやすさも改善の対象です。
+        </p>
+      </article>
+    </div>
+    <div class="detail-actions">
+      <a class="button button-dark" href={withBase('#works')}>
+        制作実績を見る
+      </a>
+      <a class="quiet-link" href={withBase()}>
+        トップページに戻る
+      </a>
+    </div>
+  </div>
+</Layout>

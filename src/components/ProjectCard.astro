@@ -1,0 +1,41 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { withBase } from '../consts';
+import ProjectVisual from './ProjectVisual.astro';
+interface Props {
+  project: CollectionEntry<'projects'>;
+}
+const { project } = Astro.props;
+const { title, category, description, stack, role } = project.data;
+---
+
+<article class="project-card">
+  <a
+    class="project-image-link"
+    href={withBase(`works/${project.id}/`)}
+    aria-label={`${title}の制作詳細を見る`}
+  >
+    <ProjectVisual project={project} />
+  </a>
+  <div class="project-copy">
+    <p class="project-category">{category}</p>
+    <h3>
+      <a href={withBase(`works/${project.id}/`)}>{title}</a>
+    </h3>
+    <p class="project-description">{description}</p>
+    <div class="tags">
+      {stack.map((tech) => (
+        <span>{tech}</span>
+      ))}
+    </div>
+    <div class="project-bottom">
+      <span>{role}</span>
+      <a class="text-link" href={withBase(`works/${project.id}/`)}>
+        制作詳細<span class="sr-only">：{title}</span>
+        <span class="plus" aria-hidden="true">
+          ＋
+        </span>
+      </a>
+    </div>
+  </div>
+</article>
