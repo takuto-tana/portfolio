@@ -4,7 +4,7 @@ on:
   # `main`ブランチにプッシュするたびにワークフローをトリガーします。
   # 別のブランチを使用している場合は、`main`をそのブランチ名に置き換えてください。
   push:
-    branches: [master]
+    branches: [master, main]
   # GitHub上のActionsタブからこのワークフローを手動で実行できます。
   workflow_dispatch:
 
