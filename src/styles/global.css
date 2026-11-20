@@ -935,50 +935,17 @@ ul {
   max-width: 350px;
 }
 .identity-art {
-  height: 220px;
   position: relative;
   margin-top: 25px;
   background: var(--lavender);
   border: 1px solid #d8d4e3;
   border-radius: 3px 60px 3px 3px;
   overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  align-self: start;
 }
-.identity-art > span:first-child {
-  font-size: 150px;
-  line-height: 1;
-  font-weight: 700;
-  letter-spacing: -0.1em;
-  z-index: 1;
-  transform: rotate(-8deg);
-  margin-top: -20px;
-}
-.identity-art > span:first-child span {
-  color: #707b3b;
-}
-.identity-orbit {
-  width: 290px;
-  height: 140px;
-  border: 1px solid #b1a8c5;
-  border-radius: 50%;
-  position: absolute;
-  transform: rotate(-30deg);
-}
-.identity-art > svg {
-  position: absolute;
-  right: 35px;
-  top: 30px;
-  fill: var(--lime);
-  stroke-width: 1px;
-}
-.identity-note {
-  position: absolute;
-  left: 20px;
-  bottom: 17px;
-  font-size: 9px;
-  letter-spacing: 0.16em;
+.identity-art img {
+  width: 100%;
+  height: auto;
 }
 .about-identity h2 {
   font-size: 38px;
@@ -1700,9 +1667,6 @@ ul {
   .about-copy > p {
     font-size: 14px;
   }
-  .identity-art {
-    height: 190px;
-  }
   .certifications li {
     font-size: 11px;
     gap: 8px;
@@ -2104,26 +2068,8 @@ ul {
   }
   .identity-art {
     grid-row: 2/4;
-    height: 150px;
     margin: 0;
     border-top-right-radius: 45px;
-  }
-  .identity-art > span:first-child {
-    font-size: 105px;
-  }
-  .identity-art > svg {
-    width: 27px;
-    right: 18px;
-    top: 18px;
-  }
-  .identity-orbit {
-    width: 190px;
-    height: 90px;
-  }
-  .identity-note {
-    font-size: 6px;
-    left: 10px;
-    bottom: 13px;
   }
   .about-identity h2 {
     margin-top: 32px;
